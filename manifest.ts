@@ -4,13 +4,19 @@ import fs from "fs";
 
 const publicDir = path.resolve(__dirname, "./public");
 
-const manifestConfig = (projectVersion: string): chrome.runtime.ManifestV3 => {
+const manifestJson = (info: {
+  version: string;
+  appId: string;
+  hostBaseUrl: string;
+}): chrome.runtime.ManifestV3 => {
+  const projectVersion = info.version;
+
   return {
     manifest_version: 3,
 
     name: "Assistant",
     version: projectVersion,
-    description: "Assistant",
+    description: "Assistant --- Self Hosting",
 
     icons: {
       "16": "logo.png",
@@ -44,19 +50,36 @@ const manifestConfig = (projectVersion: string): chrome.runtime.ManifestV3 => {
         matches: ["*://*/*"],
       },
     ],
+
+    update_url: `${info.hostBaseUrl}manifest.xml`,
   };
 };
 
-function vitePlugin(projectVersion: string): PluginOption {
+function vitePlugin(info: {
+  version: string;
+  appId: string;
+  hostBaseUrl: string;
+}): PluginOption {
   function makeManifest(to: string) {
     if (!fs.existsSync(to)) {
       fs.mkdirSync(to);
     }
-    const manifestPath = path.resolve(to, "manifest.json");
 
+    const manifestJsonPath = path.resolve(to, "manifest.json");
     fs.writeFileSync(
-      manifestPath,
-      JSON.stringify(manifestConfig(projectVersion), null, 2)
+      manifestJsonPath,
+      JSON.stringify(manifestJson(info), null, 2)
+    );
+
+    const manifestXmlPath = path.resolve(to, "manifest.xml");
+    fs.writeFileSync(
+      manifestXmlPath,
+      `<?xml version="1.0" encoding="UTF-8"?>
+<gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
+  <app appid="${info.appId}">
+    <updatecheck codebase="${info.hostBaseUrl}/manifest.xml" version="${info.version}" />
+  </app>
+</gupdate>`
     );
   }
 
