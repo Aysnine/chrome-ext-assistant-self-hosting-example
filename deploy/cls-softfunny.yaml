@@ -13,7 +13,7 @@ spec:
         k8s-app: assistant-she
     spec:
       containers:
-        - image: aysnine/assistant-she:0.0.21
+        - image: aysnine/assistant-she:0.1.0
           name: assistant-she
       imagePullSecrets:
         - name: private-docker-hub
