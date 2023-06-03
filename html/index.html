@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assistant --- Self Hosting Example</title>
+  </head>
+  <body>
+    <h1>Assistant --- Self Hosting Example</h1>
+
+    <h2>Windows</h2>
+
+    <h3>Google Chrome</h3>
+    <span>Run in powershell:</span>
+    <pre style="border: 1px solid; padding: 8px; overflow-x: auto;">
+New-Item -Path HKLM:\SOFTWARE\Policies\Google\Chrome -Name ExtensionInstallSources -Force
+New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Google\Chrome\ExtensionInstallSources -Name "2" -Value "https://assistant-self-hosting-example.cnine.d2.pub/*" -Force
+New-Item -Path HKLM:\SOFTWARE\Policies\Google\Chrome -Name ExtensionInstallAllowlist -Force
+New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Google\Chrome\ExtensionInstallAllowlist -Name "1" -Value "edjeggfemkdejnpgmglbdjcgeecimpce" -Force
+</pre
+    >
+    <span
+      >Restart browser and open current page on Chrome. Then
+      <a href="download.crx">Click to Install</a>.</span
+    >
+
+    <h3>Microsoft Edge</h3>
+    <span>Run in powershell:</span>
+    <pre style="border: 1px solid; padding: 8px; overflow-x: auto;">
+New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Edge -Name ExtensionInstallSources -Force
+New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Edge\ExtensionInstallSources -Name "2" -Value "https://assistant-self-hosting-example.cnine.d2.pub/*" -Force
+New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Edge -Name ExtensionInstallAllowlist -Force
+New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Edge\ExtensionInstallAllowlist -Name "1" -Value "edjeggfemkdejnpgmglbdjcgeecimpce" -Force</pre
+    >
+    <span
+      >Restart browser and open current page on Edge. Then
+      <a href="download.crx">Click to Install</a>.</span
+    >
+
+    <h2>Other System</h2>
+    <span>Reference:</span> <a
+      href="https://www.meziantou.net/self-hosting-chromium-extensions.htm#configure-the-local"
+      target="_blank"
+      >Configure the local machine and install the extension</a
+    >
+    <ul>
+      <li>ID: edjeggfemkdejnpgmglbdjcgeecimpce</li>
+      <li>DOMAIN: assistant-self-hosting-example.cnine.d2.pub</li>
+    </ul>
+    <span
+      >Restart browser and open current page on target browser. Then
+      <a href="download.crx">Click to Install</a>.</span
+    >
+  </body>
+</html>

@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assistant-she
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: assistant-she
+  template:
+    metadata:
+      labels:
+        k8s-app: assistant-she
+    spec:
+      containers:
+        - image: aysnine/assistant-she:0.0.21
+          name: assistant-she
+      imagePullSecrets:
+        - name: private-docker-hub
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: assistant-she
+spec:
+  type: ClusterIP
+  ports:
+    - name: entry
+      port: 80
+      targetPort: 80
+  selector:
+    k8s-app: assistant-she
+  sessionAffinity: ClientIP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: assistant-she
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`assistant-self-hosting-example.cnine.d2.pub`)
+      kind: Rule
+      services:
+        - name: assistant-she
+          port: entry
+      middlewares:
+        - name: assistant-she-https-redirect-middleware
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: assistant-she-https-redirect-middleware
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: assistant-she-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`assistant-self-hosting-example.cnine.d2.pub`)
+      kind: Rule
+      services:
+        - name: assistant-she
+          port: entry
+  tls:
+    certResolver: default

@@ -26,3 +26,4 @@ dist-ssr
 public/manifest.json
 public/manifest.xml
 *.pem
+*.crx
