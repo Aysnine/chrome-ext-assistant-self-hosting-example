@@ -12,7 +12,7 @@
     <h2>Windows</h2>
 
     <h3>Google Chrome</h3>
-    <span>Run in powershell:</span>
+    <span><b style="color: red">If first install</b>. Run in powershell:</span>
     <pre style="border: 1px solid; padding: 8px; overflow-x: auto;">
 New-Item -Path HKLM:\SOFTWARE\Policies\Google\Chrome -Name ExtensionInstallSources -Force
 New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Google\Chrome\ExtensionInstallSources -Name "2" -Value "https://assistant-self-hosting-example.cnine.d2.pub/*" -Force
@@ -26,7 +26,7 @@ New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Google\Chrome\ExtensionInstallAll
     >
 
     <h3>Microsoft Edge</h3>
-    <span>Run in powershell:</span>
+    <span><b style="color: red">If first install</b>. Run in powershell:</span>
     <pre style="border: 1px solid; padding: 8px; overflow-x: auto;">
 New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\Edge -Name ExtensionInstallSources -Force
 New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Edge\ExtensionInstallSources -Name "2" -Value "https://assistant-self-hosting-example.cnine.d2.pub/*" -Force
