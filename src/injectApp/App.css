@@ -1,0 +1,47 @@
+.side-app {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #ffffff;
+  border-left: 1px solid #e5e8eb;
+  box-shadow: 0 8px 16px #919eab29;
+}
+
+.side-app-header {
+  display: flex;
+  height: 57px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-bottom: 1px solid #e5e8eb;
+  background: #ffffff;
+}
+
+.side-app-header-title {
+  display: flex;
+  align-items: center;
+}
+
+.side-app-tabs {
+  box-shadow: 0 4px 4px -2px #0000000d;
+}
+.side-app-tabs .ant-tabs-nav::before {
+  border-bottom: 1px solid #e5e8eb;
+}
+
+.side-app-tabs .ant-tabs-nav {
+  margin: 0;
+}
+
+.side-app-tabs .ant-tabs-nav-list {
+  margin: 0 8px;
+}
+
+.side-app-tabs .ant-tabs-tab+.ant-tabs-tab {
+  margin: 0 0 0 8px;
+}
+
+.side-app-content {
+  overflow-y: auto;
+}
