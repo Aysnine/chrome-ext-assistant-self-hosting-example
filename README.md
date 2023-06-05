@@ -5,6 +5,13 @@ Environment Variables `.env`:
 - `VITE_APP_ID`: Extension ID, eg: `edjeggfemkdejnpgmglbdjcgeecimpce`
 - `VITE_APP_HOST_BASE_URL`: Extension host page URL, eg: `https://assistant-self-hosting-example.cnine.d2.pub/`
 
+GitHub Actions Secrets:
+
+- `PACK_KEY`: Extension private key
+- `KUBE_CONFIG`: Kubeconfig file content base64 encoded
+- `DOCKER_USERNAME`: Docker username
+- `DOCKER_TOKEN`: Docker username
+
 ```sh
 yarn dev # local development
 
