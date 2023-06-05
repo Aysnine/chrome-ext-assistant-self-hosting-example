@@ -11,6 +11,17 @@ yarn dev # local development
 yarn build # build for extension
 ```
 
+## Trigger Auto Release
+
+```sh
+next_version=0.0.0 # change to next version
+
+git add .
+git commit -m "chore(release): $next_version" --allow-empty
+git tag $next_version
+git push origin --all && git push origin --tags
+```
+
 ## References
 
 - [Self-hosting Chromium extensions](https://www.meziantou.net/self-hosting-chromium-extensions.htm)
