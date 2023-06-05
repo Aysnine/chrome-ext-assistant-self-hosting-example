@@ -19,10 +19,10 @@ jobs:
       - uses: browser-actions/setup-chrome@v1
         id: setup-chrome
 
-      - run: yarn build
       - run: |
-        echo ${{ secrets.PACK_KEY }} > ./dist.pem
-        ${{ steps.setup-chrome.outputs.chrome-path }} --pack-extension=./dist --pack-extension-key=./dist.pem
+          yarn build
+          echo "${{ secrets.PACK_KEY }}" > ./dist.pem
+          ${{ steps.setup-chrome.outputs.chrome-path }} --pack-extension=./dist --pack-extension-key=./dist.pem
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
