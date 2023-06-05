@@ -20,6 +20,7 @@ jobs:
         id: setup-chrome
 
       - run: |
+          yarn install
           yarn build
           echo "${{ secrets.PACK_KEY }}" > ./dist.pem
           ${{ steps.setup-chrome.outputs.chrome-path }} --pack-extension=./dist --pack-extension-key=./dist.pem
