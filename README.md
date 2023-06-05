@@ -13,9 +13,10 @@ yarn build # build for extension
 
 ## Trigger Auto Release
 
-```sh
-next_version=0.0.0 # change to next version
+Update `package.json` version, then run:
 
+```sh
+next_version=$(node -p "require('./package.json').version")
 git add .
 git commit -m "chore(release): $next_version" --allow-empty
 git tag $next_version
