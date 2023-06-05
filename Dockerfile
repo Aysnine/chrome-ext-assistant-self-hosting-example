@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 nginx:alpine
+FROM nginx:alpine
 
 COPY html /usr/share/nginx/html
 COPY dist.crx /usr/share/nginx/html/download.crx
