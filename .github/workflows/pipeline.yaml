@@ -10,8 +10,12 @@ on:
 jobs:
   pack:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.previousTag.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
           node-version: 20
@@ -24,6 +28,12 @@ jobs:
           yarn build
           echo "${{ secrets.PACK_KEY }}" > ./dist.pem
           ${{ steps.setup-chrome.outputs.chrome-path }} --pack-extension=./dist --pack-extension-key=./dist.pem
+
+      - name: Get Previous tag
+        id: previousTag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: 0.0.0
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -66,47 +76,36 @@ jobs:
     # if: ${{ startsWith(github.event.head_commit.message, 'chore(release)') }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Login to Docker Hub Private Registry
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Get Previous tag
-        id: previousTag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 0.0.0
-
+      - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
         with:
           name: pack
-      - name: Display structure of downloaded files
-        run: ls -R
 
-      # - name: Build and push
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     push: true
-      #     tags: |
-      #       aysnine/assistant-she:${{ steps.previousTag.outputs.tag }}
-      #       aysnine/assistant-she:latest
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to Docker Hub Private Registry
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            aysnine/assistant-she:${{ needs.pack.outputs.tag }}
+            aysnine/assistant-she:latest
 
-      # - run: |
-      #     TAG=${{ steps.previousTag.outputs.tag }}
-      #     echo $TAG
-      #     sed -i -e "s/\:latest/\:${TAG}/g" ./deploy/cls-softfunny.yaml
-      #     cat ./deploy/cls-softfunny.yaml
-      # - uses: actions-hub/kubectl@v1.24.0
-      #   env:
-      #     KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-      #   with:
-      #     args: apply -f ./deploy/cls-softfunny.yaml
+      - run: |
+          TAG=${{ needs.pack.outputs.tag }}
+          echo $TAG
+          sed -i -e "s/\:latest/\:${TAG}/g" ./deploy/cls-softfunny.yaml
+          cat ./deploy/cls-softfunny.yaml
+      - uses: actions-hub/kubectl@v1.24.0
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: apply -f ./deploy/cls-softfunny.yaml
