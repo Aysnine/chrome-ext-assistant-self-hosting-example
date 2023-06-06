@@ -101,11 +101,11 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            aysnine/assistant-she:${{ needs.pack.outputs.tag }}_${{ needs.pack.outputs.shortSha } }}
+            aysnine/assistant-she:${{ needs.pack.outputs.tag }}_${{ needs.pack.outputs.shortSha }}
             aysnine/assistant-she:latest
 
       - run: |
-          TAG=${{ needs.pack.outputs.tag }}_${{ needs.pack.outputs.shortSha } }}
+          TAG=${{ needs.pack.outputs.tag }}_${{ needs.pack.outputs.shortSha }}
           echo $TAG
           sed -i -e "s/\:latest/\:${TAG}/g" ./deploy/cls-softfunny.yaml
           cat ./deploy/cls-softfunny.yaml
