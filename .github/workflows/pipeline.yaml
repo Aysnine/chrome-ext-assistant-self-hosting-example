@@ -9,7 +9,7 @@ on:
 
 jobs:
   pack:
-    if: ${{ !contains(github.event.head_commit.message, 'chore(docs)') && !contains(github.event.head_commit.message, '[deploy]') }}    
+    if: ${{ !contains(github.event.head_commit.message, 'chore(docs)') && !contains(github.event.head_commit.message, '[deploy]') }}
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.previousTag.outputs.tag }}
@@ -35,6 +35,9 @@ jobs:
         uses: "WyriHaximus/github-action-get-previous-tag@v1"
         with:
           fallback: 0.0.0
+      - name: Get Short Sha
+        id: shortSha
+        uses: benjlevesque/short-sha@v1.2
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -98,11 +101,11 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            aysnine/assistant-she:${{ needs.pack.outputs.tag }}
+            aysnine/assistant-she:${{ needs.pack.outputs.tag }}_${{ needs.pack.outputs.shortSha } }}
             aysnine/assistant-she:latest
 
       - run: |
-          TAG=${{ needs.pack.outputs.tag }}
+          TAG=${{ needs.pack.outputs.tag }}_${{ needs.pack.outputs.shortSha } }}
           echo $TAG
           sed -i -e "s/\:latest/\:${TAG}/g" ./deploy/cls-softfunny.yaml
           cat ./deploy/cls-softfunny.yaml
