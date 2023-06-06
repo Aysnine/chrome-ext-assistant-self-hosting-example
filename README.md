@@ -1,4 +1,22 @@
-# Assistant --- Self Hosting Example
+# Assistant
+
+A chromium extension example for self-hosting.
+
+References:
+
+- [Self-hosting Chromium extensions](https://www.meziantou.net/self-hosting-chromium-extensions.htm)
+
+## Installing Test on Platforms
+
+- ✅ Windows 10, 11
+  - ✅ Chrome 113
+  - ✅ Edge 113
+- ❓ MacOS
+  - ❓ Chrome
+  - ❓ Edge
+- ❓ Linux
+
+## Development
 
 Environment Variables `.env`:
 
@@ -12,17 +30,7 @@ GitHub Actions Secrets:
 - `DOCKER_USERNAME`: Docker username
 - `DOCKER_TOKEN`: Docker username
 
-## Test Installing on Platforms
-
-- ✅ Windows 10, 11
-  - ✅ Chrome 113
-  - ✅ Edge 113
-- ❓ MacOS
-  - ❓ Chrome
-  - ❓ Edge
-- ❓ Linux
-
-## Development
+### Commands
 
 ```sh
 yarn dev # local development
@@ -41,7 +49,3 @@ git commit -m "chore(release): $next_version" --allow-empty
 git tag $next_version
 git push origin --all && git push origin --tags
 ```
-
-## References
-
-- [Self-hosting Chromium extensions](https://www.meziantou.net/self-hosting-chromium-extensions.htm)
