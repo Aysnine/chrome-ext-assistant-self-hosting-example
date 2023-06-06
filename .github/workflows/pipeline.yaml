@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 20
           cache: "yarn"
@@ -37,7 +37,7 @@ jobs:
           fallback: 0.0.0
       - name: Get Short Sha
         id: shortSha
-        uses: benjlevesque/short-sha@v1.2
+        uses: benjlevesque/short-sha@v2.2
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
