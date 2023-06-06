@@ -12,13 +12,25 @@ GitHub Actions Secrets:
 - `DOCKER_USERNAME`: Docker username
 - `DOCKER_TOKEN`: Docker username
 
+## Test Installing on Platforms
+
+- ✅ Windows 10, 11
+  - ✅ Chrome 113
+  - ✅ Edge 113
+- ❓ MacOS
+  - ❓ Chrome
+  - ❓ Edge
+- ❓ Linux
+
+## Development
+
 ```sh
 yarn dev # local development
 
 yarn build # build for extension
 ```
 
-## Trigger Auto Release
+### Release Extension Package
 
 Update `package.json` version, then run:
 
