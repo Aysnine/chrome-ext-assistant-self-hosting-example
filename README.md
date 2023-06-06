@@ -2,10 +2,22 @@
 
 A chromium extension example for self-hosting.
 
+On the way to self-hosting, we just need a simple personal web server eg nginx:
+
+```
+nginx
+  ├── index.html        # installing guide
+  ├── manifest.xml      # current extension version and download url
+  └── download.crx      # current extension package
+```
+
+The server always deploy the latest extension package, and the extension will check the latest version and download it automatically.
+
 References:
 
 - [Self-hosting Chromium extensions](https://www.meziantou.net/self-hosting-chromium-extensions.htm)
 - [Alternative extension installation methods](https://developer.chrome.com/docs/extensions/mv3/external_extensions/)
+- [Update manifest](https://developer.chrome.com/docs/extensions/mv3/linux_hosting/#update_url)
 
 ## Installing Test on Platforms
 
