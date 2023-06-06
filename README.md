@@ -5,6 +5,7 @@ A chromium extension example for self-hosting.
 References:
 
 - [Self-hosting Chromium extensions](https://www.meziantou.net/self-hosting-chromium-extensions.htm)
+- [Alternative extension installation methods](https://developer.chrome.com/docs/extensions/mv3/external_extensions/)
 
 ## Installing Test on Platforms
 
